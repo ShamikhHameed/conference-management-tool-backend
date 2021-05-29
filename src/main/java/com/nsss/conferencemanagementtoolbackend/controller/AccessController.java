@@ -10,9 +10,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/access")
 public class AccessController {
-    @GetMapping("/all")
-    public String allAccess() {
+    @GetMapping("/all/home")
+    public String allHomeAccess() {
         return "This is where general users land. Display conference details here.";
+    }
+
+    @GetMapping("/all/rp")
+    public String allRPAccess() {
+        return "This is where general users land. Details about Research Presentations.";
+    }
+
+    @GetMapping("/all/wp")
+    public String allWPAccess() {
+        return "This is where general users land. Details about Workshop Presentations.";
+    }
+
+    @GetMapping("/all/download")
+    public String allDownloadAccess() {
+        return "This is where general users land. All template download files here.";
+    }
+
+    @GetMapping("/all/contactus")
+    public String allContactUsAccess() {
+        return "This is where general users land. 'Contact Us' details here.";
     }
 
     @GetMapping("/admin")
@@ -61,6 +81,6 @@ public class AccessController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR') or hasRole('REVIEWER') or " +
             "hasRole('RP') or hasRole('WP') or hasRole('ATTENDEE')")
     public String userAccess() {
-        return "User Content. Common for all Registered users";
+        return "User Content. Common for all Registered users. Conference Details Here.";
     }
 }

@@ -6,7 +6,8 @@ public class SignupRequest {
     private String username;
     private String email;
 
-    private Set<String> roles;
+//    private Set<String> roles;
+private String roles;
 
     private String password;
 
@@ -34,11 +35,19 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public Set<String> getRoles() {
+/*    public Set<String> getRoles() {
         return this.roles;
     }
 
     public void setRole(Set<String> roles) {
+        this.roles = roles;
+    }*/
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 }

@@ -17,9 +17,9 @@ public class WorkshopFileService {
     @Autowired
     private WorkshopFileRepository workshopFileRepository;
 
-    public WorkshopFile store(MultipartFile file) throws IOException {
+    public WorkshopFile store(MultipartFile file, String user, Boolean approvalStatus) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        WorkshopFile workshopFile = new WorkshopFile(fileName, file.getContentType(), file.getBytes());
+        WorkshopFile workshopFile = new WorkshopFile(fileName, file.getContentType(), file.getBytes(), user, approvalStatus);
 
         return workshopFileRepository.save(workshopFile);
     }

@@ -29,10 +29,12 @@ public class FileController {
     private WorkshopFileService workshopFileService;
 
     @PostMapping("/rp/upload")
-    public ResponseEntity<ResponseMessage> uploadRPFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadRPFile(@RequestParam("file") MultipartFile file,
+                                                        @RequestParam("user") String user,
+                                                        @RequestParam("approvalStatus") Boolean status) {
         String message = "";
         try {
-            researchFileService.store(file);
+            researchFileService.store(file, user, status);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -47,22 +49,28 @@ public class FileController {
         List<ResponseFile> files = researchFileService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/rp/files/")
+                    .path("api/access/rp/files/")
                     .path(dbFile.getId())
                     .toUriString();
 
+/*            return new ResponseFile(
+                    dbFile.getName(),
+                    fileDownloadUri,
+                    dbFile.getType(),
+                    dbFile.getData().length);*/
             return new ResponseFile(
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
-                    dbFile.getData().length);
+                    dbFile.getData().length,
+                    dbFile.getUser());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("/rp/files/{id}")
-    public ResponseEntity<byte[]> getRPFile(@PathVariable String id) {
+    @GetMapping("/rp/files/{id}/download")
+    public ResponseEntity<byte[]> downloadRPFile(@PathVariable String id) {
         ResearchFile researchFile = researchFileService.getFile(id);
 
         return ResponseEntity.ok()
@@ -70,11 +78,22 @@ public class FileController {
                 .body(researchFile.getData());
     }
 
+    @GetMapping("/rp/files/{id}/view")
+    public ResponseEntity<byte[]> viewRPFile(@PathVariable String id) {
+        ResearchFile researchFile = researchFileService.getFile(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + researchFile.getName() + "\"")
+                .body(researchFile.getData());
+    }
+
     @PostMapping("/wp/upload")
-    public ResponseEntity<ResponseMessage> uploadWPFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadWPFile(@RequestParam("file") MultipartFile file,
+                                                        @RequestParam("user") String user,
+                                                        @RequestParam("approvalStatus") Boolean status) {
         String message = "";
         try {
-            workshopFileService.store(file);
+            workshopFileService.store(file, user, status);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -89,26 +108,41 @@ public class FileController {
         List<ResponseFile> files = workshopFileService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/wp/files/")
+                    .path("api/access/wp/files/")
                     .path(dbFile.getId())
                     .toUriString();
 
+/*            return new ResponseFile(
+                    dbFile.getName(),
+                    fileDownloadUri,
+                    dbFile.getType(),
+                    dbFile.getData().length);*/
             return new ResponseFile(
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
-                    dbFile.getData().length);
+                    dbFile.getData().length,
+                    dbFile.getUser());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("/wp/files/{id}")
-    public ResponseEntity<byte[]> getWPFile(@PathVariable String id) {
+    @GetMapping("/wp/files/{id}/download")
+    public ResponseEntity<byte[]> downloadWPFile(@PathVariable String id) {
         WorkshopFile workshopFile = workshopFileService.getFile(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + workshopFile.getName() + "\"")
+                .body(workshopFile.getData());
+    }
+
+    @GetMapping("/wp/files/{id}/view")
+    public ResponseEntity<byte[]> viewWPFile(@PathVariable String id) {
+        WorkshopFile workshopFile = workshopFileService.getFile(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + workshopFile.getName() + "\"")
                 .body(workshopFile.getData());
     }
 }

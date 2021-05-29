@@ -6,11 +6,21 @@ public class ResponseFile {
     private String type;
     private long size;
 
-    public ResponseFile(String name, String url, String type, long size) {
+    private String user;
+
+/*    public ResponseFile(String name, String url, String type, long size) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.size = size;
+    }*/
+
+    public ResponseFile(String name, String url, String type, long size, String user) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.size = size;
+        this.user = user;
     }
 
     public String getName() {
@@ -43,5 +53,13 @@ public class ResponseFile {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

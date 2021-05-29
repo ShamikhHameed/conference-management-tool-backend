@@ -9,13 +9,24 @@ public class ResearchFile {
     private String type;
     private byte[] data;
 
+    private String user;
+    private boolean approvalStatus;
+
     public ResearchFile() {
     }
 
-    public ResearchFile(String name, String type, byte[] data) {
+/*    public ResearchFile(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;
+    }*/
+
+    public ResearchFile(String name, String type, byte[] data, String user, boolean approvalStatus) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.user = user;
+        this.approvalStatus = approvalStatus;
     }
 
     public String getId() {
@@ -48,5 +59,21 @@ public class ResearchFile {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public boolean isApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(boolean approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 }

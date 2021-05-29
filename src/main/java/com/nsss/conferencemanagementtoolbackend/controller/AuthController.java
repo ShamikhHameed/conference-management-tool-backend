@@ -91,10 +91,30 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRoles();
+/*        Set<String> strRoles = signUpRequest.getRoles();
+        Set<Role> roles = new HashSet<>();*/
+        String strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
+
+        if(strRoles.equals("rp")){
+            Role rpRole = roleRepository.findByName(ERole.ROLE_RP)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(rpRole);
+        } else if(strRoles.equals("wp")){
+            Role wpRole = roleRepository.findByName(ERole.ROLE_WP)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(wpRole);
+        } else if(strRoles.equals("attendee")){
+            Role attendeeRole = roleRepository.findByName(ERole.ROLE_ATTENDEE)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(attendeeRole);
+        }
+
+/*        if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
@@ -143,7 +163,7 @@ public class AuthController {
                         roles.add(userRole);
                 }
             });
-        }
+        }*/
 
         user.setRoles(roles);
         userRepository.save(user);
