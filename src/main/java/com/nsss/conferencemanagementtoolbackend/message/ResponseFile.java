@@ -7,13 +7,16 @@ public class ResponseFile {
     private long size;
 
     private String user;
+    private Boolean approvalStatus;
 
-/*    public ResponseFile(String name, String url, String type, long size) {
+    private Boolean paymentStatus;
+
+    public ResponseFile(String name, String url, String type, long size) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.size = size;
-    }*/
+    }
 
     public ResponseFile(String name, String url, String type, long size, String user) {
         this.name = name;
@@ -21,6 +24,25 @@ public class ResponseFile {
         this.type = type;
         this.size = size;
         this.user = user;
+    }
+
+    public ResponseFile(String name, String url, String type, long size, String user, Boolean approvalStatus) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.size = size;
+        this.user = user;
+        this.approvalStatus = approvalStatus;
+    }
+
+    public ResponseFile(String name, String url, String type, long size, String user, Boolean approvalStatus, Boolean paymentStatus) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.size = size;
+        this.user = user;
+        this.approvalStatus = approvalStatus;
+        this.paymentStatus = paymentStatus;
     }
 
     public String getName() {
@@ -61,5 +83,21 @@ public class ResponseFile {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public Boolean getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(Boolean approvalStatus) {
+        this.approvalStatus = approvalStatus;
+    }
+
+    public Boolean getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(Boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }

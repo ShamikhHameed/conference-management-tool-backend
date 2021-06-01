@@ -24,6 +24,14 @@ public class WorkshopFileService {
         return workshopFileRepository.save(workshopFile);
     }
 
+    public WorkshopFile update(String id) throws IOException {
+        WorkshopFile workshopFile = workshopFileRepository.findById(id).get();
+
+        workshopFile.setApprovalStatus(true);
+
+        return workshopFileRepository.save(workshopFile);
+    }
+
     public WorkshopFile getFile(String id) {
         return workshopFileRepository.findById(id).get();
     }

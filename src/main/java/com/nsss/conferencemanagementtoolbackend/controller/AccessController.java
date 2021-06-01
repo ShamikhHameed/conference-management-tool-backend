@@ -35,6 +35,11 @@ public class AccessController {
         return "This is where general users land. 'Contact Us' details here.";
     }
 
+    @GetMapping("/payment")
+    public String paymentGateway() {
+        return "This is the payment gateway.";
+    }
+
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String adminAccess() {

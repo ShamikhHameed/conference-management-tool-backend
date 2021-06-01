@@ -31,15 +31,50 @@ public class FileController {
     @PostMapping("/rp/upload")
     public ResponseEntity<ResponseMessage> uploadRPFile(@RequestParam("file") MultipartFile file,
                                                         @RequestParam("user") String user,
-                                                        @RequestParam("approvalStatus") Boolean status) {
+                                                        @RequestParam("approvalStatus") Boolean approvalStatus,
+                                                        @RequestParam("paymentStatus") Boolean paymentStatus) {
         String message = "";
         try {
-            researchFileService.store(file, user, status);
+            researchFileService.store(file, user, approvalStatus, paymentStatus);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @PutMapping("/rp/files/{id}/approval")
+    public ResponseEntity<ResponseMessage> updateRPFileApproval(@PathVariable String id) {
+        ResearchFile researchFile = researchFileService.getFile(id);
+
+        String message = "";
+
+        try {
+            researchFileService.updateApprovalStatus(id);
+
+            message = "Updated file approval successfully: " + researchFile.getName();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not update file approval: " + researchFile.getName() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @PutMapping("/rp/files/{id}/payment")
+    public ResponseEntity<ResponseMessage> updateRPFilePayment(@PathVariable String id) {
+        ResearchFile researchFile = researchFileService.getFile(id);
+
+        String message = "";
+
+        try {
+            researchFileService.updatePaymentStatus(id);
+
+            message = "Updated file payment successfully: " + researchFile.getName();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not update file payment: " + researchFile.getName() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
@@ -53,17 +88,13 @@ public class FileController {
                     .path(dbFile.getId())
                     .toUriString();
 
-/*            return new ResponseFile(
-                    dbFile.getName(),
-                    fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);*/
             return new ResponseFile(
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
                     dbFile.getData().length,
-                    dbFile.getUser());
+                    dbFile.getUser(),
+                    dbFile.isApprovalStatus());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
@@ -103,6 +134,23 @@ public class FileController {
         }
     }
 
+    @PutMapping("/wp/files/{id}")
+    public ResponseEntity<ResponseMessage> updateWPFile(@PathVariable String id) {
+        WorkshopFile workshopFile = workshopFileService.getFile(id);
+
+        String message = "";
+
+        try {
+            workshopFileService.update(id);
+
+            message = "Updated the file successfully: " + workshopFile.getName();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not update the file: " + workshopFile.getName() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
     @GetMapping("/wp/files")
     public ResponseEntity<List<ResponseFile>> getListWPFiles() {
         List<ResponseFile> files = workshopFileService.getAllFiles().map(dbFile -> {
@@ -112,17 +160,13 @@ public class FileController {
                     .path(dbFile.getId())
                     .toUriString();
 
-/*            return new ResponseFile(
-                    dbFile.getName(),
-                    fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);*/
             return new ResponseFile(
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
                     dbFile.getData().length,
-                    dbFile.getUser());
+                    dbFile.getUser(),
+                    dbFile.isApprovalStatus());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);

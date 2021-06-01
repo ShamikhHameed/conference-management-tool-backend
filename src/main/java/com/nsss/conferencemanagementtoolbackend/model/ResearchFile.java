@@ -12,21 +12,18 @@ public class ResearchFile {
     private String user;
     private boolean approvalStatus;
 
+    private boolean paymentStatus;
+
     public ResearchFile() {
     }
 
-/*    public ResearchFile(String name, String type, byte[] data) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
-    }*/
-
-    public ResearchFile(String name, String type, byte[] data, String user, boolean approvalStatus) {
+    public ResearchFile(String name, String type, byte[] data, String user, boolean approvalStatus, boolean paymentStatus) {
         this.name = name;
         this.type = type;
         this.data = data;
         this.user = user;
         this.approvalStatus = approvalStatus;
+        this.paymentStatus = paymentStatus;
     }
 
     public String getId() {
@@ -75,5 +72,13 @@ public class ResearchFile {
 
     public void setApprovalStatus(boolean approvalStatus) {
         this.approvalStatus = approvalStatus;
+    }
+
+    public boolean isPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }
