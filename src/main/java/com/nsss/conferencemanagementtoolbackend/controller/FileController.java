@@ -94,7 +94,8 @@ public class FileController {
                     dbFile.getType(),
                     dbFile.getData().length,
                     dbFile.getUser(),
-                    dbFile.isApprovalStatus());
+                    dbFile.isApprovalStatus(),
+                    dbFile.isPaymentStatus());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
