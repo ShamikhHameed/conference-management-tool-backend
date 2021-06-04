@@ -114,57 +114,6 @@ public class AuthController {
             roles.add(attendeeRole);
         }
 
-/*        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "editor":
-                        Role editorRole = roleRepository.findByName(ERole.ROLE_EDITOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(editorRole);
-
-                        break;
-                    case "reviewer":
-                        Role reviewerRole = roleRepository.findByName(ERole.ROLE_REVIEWER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(reviewerRole);
-
-                        break;
-                    case "rp":
-                        Role rpRole = roleRepository.findByName(ERole.ROLE_RP)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(rpRole);
-
-                        break;
-                    case "wp":
-                        Role wpRole = roleRepository.findByName(ERole.ROLE_WP)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(wpRole);
-
-                        break;
-                    case "attendee":
-                        Role attendeeRole = roleRepository.findByName(ERole.ROLE_ATTENDEE)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(attendeeRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }*/
-
         user.setRoles(roles);
         userRepository.save(user);
 
