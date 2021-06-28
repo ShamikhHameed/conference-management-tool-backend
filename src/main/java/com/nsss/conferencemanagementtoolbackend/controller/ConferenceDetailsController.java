@@ -1,8 +1,11 @@
 package com.nsss.conferencemanagementtoolbackend.controller;
 
 
+import com.nsss.conferencemanagementtoolbackend.message.ResponseMessage;
 import com.nsss.conferencemanagementtoolbackend.model.ConferenceDetails;
+import com.nsss.conferencemanagementtoolbackend.model.ResearchFile;
 import com.nsss.conferencemanagementtoolbackend.repository.ConferenceDetailsRepository;
+import com.nsss.conferencemanagementtoolbackend.services.FormConferenceDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +21,13 @@ import java.util.Optional;
 public class ConferenceDetailsController {
     @Autowired
     private ConferenceDetailsRepository conferenceDetailsRepository;
+    @Autowired
+    private FormConferenceDetailsService formConferenceDetailsService;
 
     @PostMapping("/conferenceDetails")
     public ResponseEntity<ConferenceDetails> createConferenceDetails(@RequestBody ConferenceDetails conferenceDetails) {
         try {
-            ConferenceDetails _conferenceDetails = conferenceDetailsRepository.save(new ConferenceDetails(conferenceDetails.getName(),conferenceDetails.getInstitute(),conferenceDetails.getStartDate(),conferenceDetails.getNoOfDays(),conferenceDetails.getSpeakers(),conferenceDetails.getSpeakerInstitute(), false));
+            ConferenceDetails _conferenceDetails = conferenceDetailsRepository.save(new ConferenceDetails(conferenceDetails.getName(),conferenceDetails.getInstitute(),conferenceDetails.getStartDate(),conferenceDetails.getNoOfDays(),conferenceDetails.getSpeakers(),conferenceDetails.getSpeakerInstitutes(), false));
             return new ResponseEntity<>(_conferenceDetails, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,11 +73,28 @@ public class ConferenceDetailsController {
             _conferenceDetails.setStartDate(conferenceDetails.getStartDate());
             _conferenceDetails.setNoOfDays(conferenceDetails.getNoOfDays());
             _conferenceDetails.setSpeakers(conferenceDetails.getSpeakers());
-            _conferenceDetails.setSpeakerInstitute(conferenceDetails.getSpeakerInstitute());
+            _conferenceDetails.setSpeakerInstitutes(conferenceDetails.getSpeakerInstitutes());
+            _conferenceDetails.setApprovalStatus(conferenceDetails.isApprovalStatus());
 
             return new ResponseEntity<>(conferenceDetailsRepository.save(_conferenceDetails), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/conferenceDetails/{id}/approval")
+    public ResponseEntity<ResponseMessage> updateFormConferenceDetailsApproval(@PathVariable String id) {
+        ConferenceDetails conferenceDetails = formConferenceDetailsService.getFile(id);
+
+        String message = "";
+
+        try {
+            formConferenceDetailsService.updateApprovalStatus(id);
+
+            message = "Updated conference details form approval successfully: " + conferenceDetails.getName();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not update conference details form approval: " + conferenceDetails.getName() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
     @DeleteMapping("/conferenceDetails/{id}")

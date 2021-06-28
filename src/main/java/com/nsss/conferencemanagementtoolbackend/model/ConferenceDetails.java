@@ -14,23 +14,19 @@ public class ConferenceDetails {
     private Date startDate;
     private int noOfDays;
     private List<String> speakers;
-    private List<String> speakerInstitute;
-
-
-    private byte[] data;
-
+    private List<String> speakerInstitutes;
     private boolean approvalStatus;
 
     public ConferenceDetails() {
     }
 
-    public ConferenceDetails(String name, String institute, Date startDate, int noOfDays, List<String> speakers, List<String> speakerInstitute, boolean approvalStatus) {
+    public ConferenceDetails(String name, String institute, Date startDate, int noOfDays, List<String> speakers, List<String> speakerInstitutes, boolean approvalStatus) {
         this.name=name;
         this.institute=institute;
         this.startDate=startDate;
         this.noOfDays=noOfDays;
         this.speakers=speakers;
-        this.speakerInstitute=speakerInstitute;
+        this.speakerInstitutes=speakerInstitutes;
     }
 
 
@@ -58,22 +54,12 @@ public class ConferenceDetails {
 
     public void setSpeakers(List<String> speakers) { this.speakers = speakers; }
 
-    public List<String> getSpeakerInstitute() { return speakerInstitute; }
+    public List<String> getSpeakerInstitutes() { return speakerInstitutes; }
 
-    public void setSpeakerInstitute(List<String> speakerInstitute) { this.speakerInstitute = speakerInstitute; }
-
-    public byte[] getData() { return data; }
-
-    public void setData(byte[] data) { this.data = data; }
+    public void setSpeakerInstitutes(List<String> speakerInstitutes) { this.speakerInstitutes = speakerInstitutes; }
 
     public boolean isApprovalStatus() { return approvalStatus; }
 
     public void setApprovalStatus(boolean approvalStatus) { this.approvalStatus = approvalStatus; }
-
-
-
-
-
-
 
 }
