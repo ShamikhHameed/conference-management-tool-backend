@@ -9,28 +9,26 @@ import java.util.List;
 public class WorkshopDetails {
 
     private String id;
-    private String name;
-    private String institute;
+    private String title;
+    private String time;
+    private String place;
     private Date startDate;
     private int noOfDays;
     private List<String> speakers;
-    private List<String> speakerInstitute;
-
-
-    private byte[] data;
-
+    private List<String> speakerInstitutes;
     private boolean approvalStatus;
 
     public WorkshopDetails() {
     }
 
-    public WorkshopDetails(String name, String institute, Date startDate, int noOfDays, List<String> speakers, List<String> speakerInstitute, boolean approvalStatus) {
-        this.name=name;
-        this.institute=institute;
+    public WorkshopDetails(String title, String time,String place, Date startDate, int noOfDays, List<String> speakers, List<String> speakerInstitutes, boolean approvalStatus) {
+        this.title=title;
+        this.time=time;
+        this.place=place;
         this.startDate=startDate;
         this.noOfDays=noOfDays;
         this.speakers=speakers;
-        this.speakerInstitute=speakerInstitute;
+        this.speakerInstitutes=speakerInstitutes;
     }
 
 
@@ -38,13 +36,17 @@ public class WorkshopDetails {
 
     public void setId(String id) { this.id = id; }
 
-    public String getName() { return name; }
+    public String getTitle() { return title; }
 
-    public void setName(String name) { this.name = name; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getInstitute() { return institute; }
+    public String getTime() { return time; }
 
-    public void setInstitute(String institute) { this.institute = institute; }
+    public void setTime(String time) { this.time = time; }
+
+    public String getPlace() { return place; }
+
+    public void setPlace(String place) { this.place = place; }
 
     public Date getStartDate() { return startDate; }
 
@@ -58,13 +60,9 @@ public class WorkshopDetails {
 
     public void setSpeakers(List<String> speakers) { this.speakers = speakers; }
 
-    public List<String> getSpeakerInstitute() { return speakerInstitute; }
+    public List<String> getSpeakerInstitutes() { return speakerInstitutes; }
 
-    public void setSpeakerInstitute(List<String> speakerInstitute) { this.speakerInstitute = speakerInstitute; }
-
-    public byte[] getData() { return data; }
-
-    public void setData(byte[] data) { this.data = data; }
+    public void setSpeakerInstitutes(List<String> speakerInstitutes) { this.speakerInstitutes = speakerInstitutes; }
 
     public boolean isApprovalStatus() { return approvalStatus; }
 
