@@ -11,27 +11,28 @@ public class ResearchPaperDetails {
 
     private String id;
     private String name;
-    private String institute;
-    private Date startDate;
-    private int noOfDays;
-    private List<String> speakers;
-    private List<String> speakerInstitute;
-
-
-    private byte[] data;
-
+    private String title;
+    private String researchArea;
+    private Date publishedDate;
+    private String country;
+    private String author;
+    private List<String> contributors;
+    private List<String> contributorTitle;
     private boolean approvalStatus;
+
 
     public ResearchPaperDetails() {
     }
 
-    public ResearchPaperDetails(String name, String institute, Date startDate, int noOfDays, List<String> speakers, List<String> speakerInstitute, boolean approvalStatus) {
+    public ResearchPaperDetails(String name, String title, String researchArea, Date publishedDate, String country, String author, List<String> contributors, List<String> contributorTitle, boolean approvalStatus) {
         this.name=name;
-        this.institute=institute;
-        this.startDate=startDate;
-        this.noOfDays=noOfDays;
-        this.speakers=speakers;
-        this.speakerInstitute=speakerInstitute;
+        this.title=title;
+        this.researchArea=researchArea;
+        this.publishedDate=publishedDate;
+        this.country=country;
+        this.author=author;
+        this.contributors=contributors;
+        this.contributorTitle=contributorTitle;
     }
 
 
@@ -43,29 +44,33 @@ public class ResearchPaperDetails {
 
     public void setName(String name) { this.name = name; }
 
-    public String getInstitute() { return institute; }
+    public String getTitle() { return title; }
 
-    public void setInstitute(String institute) { this.institute = institute; }
+    public void setTitle(String title) { this.title = title; }
 
-    public Date getStartDate() { return startDate; }
+    public String getResearchArea() { return researchArea; }
 
-    public void setStartDate(Date startDate) { this.startDate = startDate; }
+    public void setResearchArea(String researchArea) { this.researchArea = researchArea; }
 
-    public int getNoOfDays() { return noOfDays; }
+    public Date getPublishedDate() { return publishedDate; }
 
-    public void setNoOfDays(int noOfDays) { this.noOfDays = noOfDays; }
+    public void setPublishedDate(Date publishedDate) { this.publishedDate = publishedDate; }
 
-    public List<String> getSpeakers() { return speakers; }
+    public String getCountry() { return country; }
 
-    public void setSpeakers(List<String> speakers) { this.speakers = speakers; }
+    public void setCountry(String country) { this.country = country; }
 
-    public List<String> getSpeakerInstitute() { return speakerInstitute; }
+    public String getAuthor() { return author; }
 
-    public void setSpeakerInstitute(List<String> speakerInstitute) { this.speakerInstitute = speakerInstitute; }
+    public void setAuthor(String author) { this.author = author; }
 
-    public byte[] getData() { return data; }
+    public List<String> getContributors() { return contributors; }
 
-    public void setData(byte[] data) { this.data = data; }
+    public void setContributors(List<String> contributors) { this.contributors = contributors; }
+
+    public List<String> getContributorTitle() { return contributorTitle; }
+
+    public void setContributorTitle(List<String> contributorTitle) { this.contributorTitle = contributorTitle; }
 
     public boolean isApprovalStatus() { return approvalStatus; }
 
